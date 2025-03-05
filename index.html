@@ -1,4 +1,3 @@
-<!-- filepath: /my-github-pages-project/my-github-pages-project/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Pages Project</title>
     <style>
+        /* filepath: /my-github-pages-project/my-github-pages-project/style.css */
         :root {
-            --bg-color: #f5f5f7;
+            --bg-color: #f5f5f7; /* Fallback color */
             --text-color: #333;
             --accent-color: #0070f3;
             --card-bg: #ffffff;
             --shadow: rgba(0, 0, 0, 0.1);
+            --subtask-indent: 20px; /* Indentation for subtasks */
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: #1a1a1a;
+                --bg-color: #1a1a1a; /* Fallback color - dark */
                 --text-color: #f5f5f7;
                 --accent-color: #60a5fa;
                 --card-bg: #2a2a2a;
@@ -32,7 +33,13 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            /* Set the background image */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='); /* Tiny transparent placeholder */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Don't repeat the image */
+            background-attachment: fixed; /* Fixed background */
+
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -40,8 +47,22 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /* Transition for theme change */
         }
+        body.dark-mode{
+            --bg-color: #1a1a1a;
+            --text-color: #f5f5f7;
+            --accent-color: #60a5fa;
+            --card-bg: #2a2a2a;
+            --shadow: rgba(0, 0, 0, 0.3);
+             /* Keep background image in dark mode */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
 
         .container {
             display: grid;
@@ -49,7 +70,18 @@
             gap: 2rem;
             max-width: 1200px;
             width: 100%;
+             /* Add some transparency to the container */
+            background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
+            padding: 20px; /* Keep padding */
+            border-radius: 10px;
+            backdrop-filter: blur(5px); /* Add a blur effect (optional) */
         }
+
+      .dark-mode .container {
+          background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity in dark mode */
+          backdrop-filter: blur(5px); /* Keep the blur if you like it */
+      }
+
 
         .card {
             background-color: var(--card-bg);
@@ -211,6 +243,7 @@
             color: #ff5555;
             cursor: pointer;
             font-size: 1rem;
+            margin-left: 0.5rem; /* Add some spacing */
         }
 
         .theme-toggle {
@@ -222,6 +255,46 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-color);
+        }
+
+        /* Subtask styles */
+        .subtask-list {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: var(--subtask-indent); /* Indent subtasks */
+        }
+
+        .subtask-item {
+            display: flex;
+            align-items: center;
+            padding: 0.25rem 0; /* Less vertical padding for subtasks */
+        }
+        .subtask-add-button {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: auto;
+            padding: 0 0.5rem;
+        }
+
+        .subtask-delete {
+        background: none;
+            border: none;
+            color: #ff5555;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .subtask-input{
+        flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin-right: .25rem;
         }
 
         /* Responsive adjustments */
@@ -237,14 +310,14 @@
 </head>
 <body>
     <button class="theme-toggle" id="themeToggle">🌓</button>
-    
+
     <div class="container">
         <div class="card">
             <h2>⏰ Time & Date</h2>
             <div class="clock" id="clock">00:00:00</div>
             <div class="date" id="date">Monday, January 1</div>
         </div>
-        
+
         <div class="card">
             <h2>🌤️ Weather</h2>
             <div class="weather-info" id="weather">
@@ -260,14 +333,13 @@
             </div>
             <div id="weatherLocation">Loading location...</div>
         </div>
-        
+
         <div class="card">
             <h2>🔖 Quick Links</h2>
             <div class="bookmarks-list" id="bookmarks">
-                <!-- Bookmarks will be populated here -->
-            </div>
+                </div>
         </div>
-        
+
         <div class="card">
             <h2>✅ To-Do List</h2>
             <form id="todoForm" class="todo-form">
@@ -275,13 +347,25 @@
                 <button type="submit" class="todo-submit">Add</button>
             </form>
             <ul class="todo-list" id="todoList">
-                <!-- Todo items will be populated here -->
-            </ul>
+                </ul>
         </div>
     </div>
 
     <script>
-        // Default bookmarks - replace with your most visited sites
+        // filepath: /my-github-pages-project/my-github-pages-project/script.js
+
+        // Function to set the background image (called on page load and theme change)
+        function setBackgroundImage() {
+            // Replace 'YOUR_IMAGE_URL' with the actual URL or base64 data
+            document.body.style.backgroundImage = "url('YOUR_IMAGE_URL')";
+
+            // Example with base64 (replace with your image's base64 data):
+            // document.body.style.backgroundImage = "url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQUFBAYFB...')"; // ...rest of your base64 data
+        }
+        setBackgroundImage();
+
+
+        // Default bookmarks
         const defaultBookmarks = [
             { name: "Google", url: "https://google.com", icon: "G" },
             { name: "YouTube", url: "https://youtube.com", icon: "YT" },
@@ -291,47 +375,38 @@
             { name: "GitHub", url: "https://github.com", icon: "GH" }
         ];
 
-        // Clock and Date functionality
+        // Clock and Date
         function updateClock() {
             const now = new Date();
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            
+
             document.getElementById('clock').textContent = now.toLocaleTimeString(undefined, timeOptions);
             document.getElementById('date').textContent = now.toLocaleDateString(undefined, dateOptions);
         }
 
-        setInterval(updateClock, 1000);
         updateClock();
+        setInterval(updateClock, 1000);
 
-        // Weather functionality
+        // Weather
         async function getWeather() {
             try {
-                // First get user's location
                 navigator.geolocation.getCurrentPosition(async position => {
                     const { latitude, longitude } = position.coords;
-                    
-                    // This example uses OpenWeatherMap API
-                    // In a real implementation, you'd need an API key
-                    // For demo purposes, let's use a fallback
-                    
-                    // Simulate weather data for demo
+
+                    // Simulate weather data
                     const weatherData = {
-                        main: {
-                            temp: 72,
-                            feels_like: 74,
-                            humidity: 65
-                        },
+                        main: { temp: 72, feels_like: 74, humidity: 65 },
                         weather: [{ description: "Partly Cloudy" }],
                         wind: { speed: 5 },
                         name: "Your City"
                     };
-                    
+
                     const weatherEl = document.getElementById('weather');
                     weatherEl.innerHTML = `
                         <div>
-                            <div class="weather-temp">${Math.round(weatherData.main.temp)}°F</div>
-                            <div class="weather-condition">${weatherData.weather[0].description}</div>
+                            <div class="weather-temp"><span class="math-inline">\{Math\.round\(weatherData\.main\.temp\)\}°F</div\>
+<div class\="weather\-condition"\></span>{weatherData.weather[0].description}</div>
                         </div>
                         <div class="weather-details">
                             <div>Feels like: ${Math.round(weatherData.main.feels_like)}°F</div>
@@ -339,7 +414,6 @@
                             <div>Wind: ${Math.round(weatherData.wind.speed)} mph</div>
                         </div>
                     `;
-                    
                     document.getElementById('weatherLocation').textContent = weatherData.name;
                 }, error => {
                     document.getElementById('weatherLocation').textContent = "Location access denied";
@@ -352,19 +426,20 @@
 
         getWeather();
 
-        // Bookmarks functionality
+        // Bookmarks
         function loadBookmarks() {
             const savedBookmarks = JSON.parse(localStorage.getItem('startpage-bookmarks')) || defaultBookmarks;
             const bookmarksContainer = document.getElementById('bookmarks');
-            
             bookmarksContainer.innerHTML = '';
             savedBookmarks.forEach(bookmark => {
                 const bookmarkEl = document.createElement('a');
                 bookmarkEl.className = 'bookmark-item';
                 bookmarkEl.href = bookmark.url;
+                bookmarkEl.target = "_blank";
+                bookmarkEl.rel = "noopener noreferrer";
                 bookmarkEl.innerHTML = `
-                    <div class="bookmark-icon">${bookmark.icon}</div>
-                    <div class="bookmark-name">${bookmark.name}</div>
+                    <div class="bookmark-icon"><span class="math-inline">\{bookmark\.icon\}</div\>
+<div class\="bookmark\-name"\></span>{bookmark.name}</div>
                 `;
                 bookmarksContainer.appendChild(bookmarkEl);
             });
@@ -372,90 +447,7 @@
 
         loadBookmarks();
 
-        // Todo List functionality
+        // --- Todo List Functions ---
         function loadTodos() {
             const savedTodos = JSON.parse(localStorage.getItem('startpage-todos')) || [];
-            const todoList = document.getElementById('todoList');
-            
-            todoList.innerHTML = '';
-            savedTodos.forEach((todo, index) => {
-                const todoEl = document.createElement('li');
-                todoEl.className = 'todo-item';
-                todoEl.innerHTML = `
-                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''}>
-                    <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
-                    <button class="todo-delete">×</button>
-                `;
-                
-                // Event listeners for todo items
-                todoEl.querySelector('.todo-checkbox').addEventListener('change', (e) => {
-                    toggleTodoComplete(index);
-                });
-                
-                todoEl.querySelector('.todo-delete').addEventListener('click', () => {
-                    deleteTodo(index);
-                });
-                
-                todoList.appendChild(todoEl);
-            });
-        }
-
-        function addTodo(text) {
-            if (!text.trim()) return;
-            
-            const savedTodos = JSON.parse(localStorage.getItem('startpage-todos')) || [];
-            savedTodos.push({ text, completed: false });
-            localStorage.setItem('startpage-todos', JSON.stringify(savedTodos));
-            loadTodos();
-        }
-
-        function toggleTodoComplete(index) {
-            const savedTodos = JSON.parse(localStorage.getItem('startpage-todos')) || [];
-            savedTodos[index].completed = !savedTodos[index].completed;
-            localStorage.setItem('startpage-todos', JSON.stringify(savedTodos));
-            loadTodos();
-        }
-
-        function deleteTodo(index) {
-            const savedTodos = JSON.parse(localStorage.getItem('startpage-todos')) || [];
-            savedTodos.splice(index, 1);
-            localStorage.setItem('startpage-todos', JSON.stringify(savedTodos));
-            loadTodos();
-        }
-
-        document.getElementById('todoForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const input = document.getElementById('todoInput');
-            addTodo(input.value);
-            input.value = '';
-        });
-
-        loadTodos();
-
-        // Theme toggle functionality
-        function loadTheme() {
-            const darkMode = localStorage.getItem('startpage-darkmode') === 'true';
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-            }
-        }
-
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const currentMode = localStorage.getItem('startpage-darkmode');
-            
-            if (currentMode === null) {
-                // First click, toggle from system preference
-                localStorage.setItem('startpage-darkmode', (!prefersDark).toString());
-            } else {
-                // Toggle existing preference
-                localStorage.setItem('startpage-darkmode', (currentMode !== 'true').toString());
-            }
-            
-            loadTheme();
-        });
-
-        loadTheme();
-    </script>
-</body>
-</html>
+            const todoList
